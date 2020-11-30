@@ -7,4 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dog_color">#00d835</color>
+    <color name="cat_color">#e72d12</color>
+    <color name="bunny_color">#0264b4</color>
 </resources>

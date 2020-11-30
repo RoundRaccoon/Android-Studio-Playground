@@ -6,6 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Download random image of"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:id="@+id/header"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cat"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/dog"
+        android:onClick="downloadDog"
+        android:text="Dog"
+        android:textSize="15dp"
+        android:backgroundTint="@color/dog_color"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintStart_toEndOf="@id/dog"
+        app:layout_constraintEnd_toStartOf="@id/bunny"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/cat"
+        android:onClick="downloadCat"
+        android:text="Cat"
+        android:textSize="15dp"
+        android:backgroundTint="@color/cat_color"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintStart_toEndOf="@id/cat"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/bunny"
+        android:onClick="downloadBunny"
+        android:text="Bunny"
+        android:textSize="15dp"
+        android:backgroundTint="@color/bunny_color"/>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toBottomOf="@id/cat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/load_image"
+        android:background="@mipmap/ic_launcher"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
