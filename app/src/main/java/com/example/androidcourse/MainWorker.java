@@ -20,7 +20,7 @@ public class MainWorker extends Worker {
     @Override
     public Result doWork() {
 
-        Log.d(LOG_TAG , "Network conection exists");
+        Log.d(LOG_TAG , "Network conection esablished");
         Log.d(LOG_TAG , "Starting download...");
 
         Data data = getInputData();
