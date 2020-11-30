@@ -2,6 +2,7 @@ package com.example.androidcourse;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.work.WorkManager;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MainViewModel viewModel = new MainViewModel();
+        MainViewModel viewModel = new MainViewModel(WorkManager.getInstance(this));
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         binding.setMainViewModel(viewModel);
