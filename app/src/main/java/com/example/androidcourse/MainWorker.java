@@ -57,7 +57,7 @@ public class MainWorker extends Worker {
 
             Bitmap bitmap = null;
             try{
-                bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(),uri);
+                bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(),uri); // Couldn't get this to work
             } catch (FileNotFoundException e) {
                     Log.w(LOG_TAG, "Failed to convert Uri to Bitmap",e);
             } catch (IOException e){
@@ -76,7 +76,7 @@ public class MainWorker extends Worker {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setLargeIcon(bitmap)
                     .setStyle(new NotificationCompat.BigPictureStyle()
-                        .bigPicture(bitmap)
+                        .bigPicture(bitmap) // this does not work either
                         .bigLargeIcon(null))
                     ;
 
