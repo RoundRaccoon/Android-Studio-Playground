@@ -21,7 +21,6 @@ public class MainViewModel extends ViewModel {
 
     public static final String LOG_TAG = "main_tag";
     private final WorkManager workManager;
-    //private boolean downloadEnqueued = false;
 
     public String dogText = "Dog" , catText = "Cat" , bunnyText = "Bunny";
 

@@ -80,7 +80,7 @@ public class MainWorker extends Worker {
                         .setContentText("Tap to view image")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setLargeIcon(bitmap)
-                        .setStyle(new NotificationCompat.BigPictureStyle() // I wanted to show the image in the app but couldn't get it to work
+                        .setStyle(new NotificationCompat.BigPictureStyle()
                                 .bigPicture(bitmap)
                                 .bigLargeIcon(null))
                         ;
