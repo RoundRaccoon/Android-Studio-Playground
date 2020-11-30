@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -21,9 +22,11 @@ import androidx.work.WorkerParameters;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Random;
@@ -50,50 +53,51 @@ public class MainWorker extends Worker {
 
         Random random = new Random();
         String imageNumber = String.valueOf(random.nextInt(5));
+
+        File localFile = null;
+
+        try {
+            localFile = File.createTempFile("images", "jpg");
+            Log.d(LOG_TAG , "TempFile created");
+        } catch (IOException e){
+            Log.w(LOG_TAG , "TempFile creation failed!");
+        }
+
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(searchAnimal).child(imageNumber + ".jpg");
 
-        storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
-            Log.d(LOG_TAG , "Download completed!");
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storageReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
 
-            Bitmap bitmap = null;
-            try{
-                bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(),uri); // Couldn't get this to work
-            } catch (FileNotFoundException e) {
-                    Log.w(LOG_TAG, "Failed to convert Uri to Bitmap",e);
-            } catch (IOException e){
-                Log.w(LOG_TAG, "Failed to convert Uri to Bitmap",e);
+                Log.d(LOG_TAG , "Download completed!");
+
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle("Download completed!")
+                        .setContentText("Tap to view image")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setLargeIcon(bitmap)
+                        .setStyle(new NotificationCompat.BigPictureStyle() // I wanted to show the image in the app but couldn't get it to work
+                                .bigPicture(bitmap)
+                                .bigLargeIcon(null))
+                        ;
+
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+
+                CharSequence name = "name";
+                NotificationChannel channel =  new NotificationChannel(CHANNEL_ID,name,NotificationManager.IMPORTANCE_DEFAULT);
+
+                notificationManager.createNotificationChannel(channel);
+                notificationManager.notify(notificationId,builder.build());
+
             }
-
-//            if(bitmap == null) // I don't know why this does not work
-//            {
-//                return Result.failure();
-//            }
-
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Download completed!")
-                    .setContentText("Tap to view image")
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setLargeIcon(bitmap)
-                    .setStyle(new NotificationCompat.BigPictureStyle()
-                        .bigPicture(bitmap) // this does not work either
-                        .bigLargeIcon(null))
-                    ;
-
-            //NotificationManager notificationManager = getApplicationContext().getSystemService(NotificationManager.class);
-
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-
-            CharSequence name = "name";
-            NotificationChannel channel =  new NotificationChannel(CHANNEL_ID,name,NotificationManager.IMPORTANCE_DEFAULT);
-
-            notificationManager.createNotificationChannel(channel);
-            notificationManager.notify(notificationId,builder.build());
-
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w(LOG_TAG , "Download failed!" , e);
+                Log.d(LOG_TAG , "Download failed!");
             }
         });
 

@@ -59,17 +59,6 @@
             app:layout_constraintStart_toEndOf="@id/cat"
             app:layout_constraintTop_toBottomOf="@id/header" />
 
-        <ImageView
-            android:id="@+id/load_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@mipmap/ic_launcher"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cat" />
-
         <TextView
             android:id="@+id/header"
             android:layout_width="0dp"
