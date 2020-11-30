@@ -29,9 +29,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:id="@+id/dog"
-        android:onClick="downloadDog"
+        android:onClick="download"
         android:text="Dog"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:backgroundTint="@color/dog_color"/>
 
     <Button
@@ -43,9 +43,9 @@
         app:layout_constraintEnd_toStartOf="@id/bunny"
         android:layout_marginEnd="10dp"
         android:id="@+id/cat"
-        android:onClick="downloadCat"
+        android:onClick="download"
         android:text="Cat"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:backgroundTint="@color/cat_color"/>
 
     <Button
@@ -57,9 +57,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="10dp"
         android:id="@+id/bunny"
-        android:onClick="downloadBunny"
+        android:onClick="download"
         android:text="Bunny"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:backgroundTint="@color/bunny_color"/>
 
     <ImageView

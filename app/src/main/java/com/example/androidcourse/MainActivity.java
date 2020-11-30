@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,15 +17,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void downloadDog(View view) {
-        Log.d(LOG_TAG,"Dog button was hit");
-    }
-
-    public void downloadCat(View view) {
-        Log.d(LOG_TAG,"Cat button was hit");
-    }
-
-    public void downloadBunny(View view) {
-        Log.d(LOG_TAG,"Bunny button was hit");
+    public void download(View view)
+    {
+        Button button = (Button) view;
+        String animal = button.getText().toString();
+        Log.d(LOG_TAG, animal + " button was hit");
     }
 }
